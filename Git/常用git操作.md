@@ -80,3 +80,11 @@
 
     git push -u origin main 
     ```
+
+---
+
+links：
+
+1. [Git 和 GitHub 教程——版本控制入门](https://mp.weixin.qq.com/s/e0nEJFwiZQqxupSJVvouxg)
+
+2. [git合并分支](https://www.jianshu.com/p/26d050497abb)
