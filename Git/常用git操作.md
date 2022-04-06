@@ -53,7 +53,7 @@
 
 1. 创建并切换到新分支
 
-    b告诉 Git 创建一个新的分支，test是要创建和切换到的分支的名字
+    `b`告诉 Git 创建一个新的分支，test是要创建和切换到的分支的名字
 
    ```shell
    git checkout -b test
