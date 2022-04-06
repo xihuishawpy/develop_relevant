@@ -35,7 +35,7 @@
    git remote add origin https://github.com/ihechikara/git-and-github-tutorial.git
    ```
 
-   更改主分支名（默认是master），但一般为main:
+   更改主分支名（默认是master），但`一般为main`:
 
    ```shell
    git branch -M main
