@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: xihuishaw
+ * @Date: 2022-04-13 14:14:30
+ * @LastEditors: xihuishaw
+ * @LastEditTime: 2022-04-13 14:15:41
+-->
 
 ## 一、推送
 
@@ -80,6 +88,13 @@
 
     git push -u origin main 
     ```
+
+3. 删除远程分支(这里删除远程分支master)
+   
+   ```shell
+   git push origin -d master
+   ```
+   
 
 ---
 
