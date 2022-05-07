@@ -257,11 +257,11 @@ TypeError: Can't instantiate abstract class Entity with abstract methods get_tit
 
 思考：
 
-1. 面向对象编程的四要素是什么， 它们的关系是什么？
+1. 面向对象编程的四要素是什么，它们的关系是什么？
 
-    抽象、封装、继承、多态
+    **抽象、封装、继承、多态**
 
-    - 抽象的本质是抽取不同类的的相同方法（函数）和属性，作为父类的属性和方法；
+    - 抽象的本质是抽取不同类的的相同属性和方法（函数），作为父类的属性和方法；
     - 封装就是把功能封装抽象的方法和其他属性和方法；
     - 子类继承父类的抽象出来的属性和方法； 
     - 多态就是重写抽象的方法（函数）。
@@ -270,4 +270,6 @@ TypeError: Can't instantiate abstract class Entity with abstract methods get_tit
 
     子类继承父类的属性和方法（函数），减少代码量和复杂度；
     三个字：**承接：属性&函数**
+
+
 
