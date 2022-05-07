@@ -177,7 +177,7 @@ harry_potter_movie.print_title()
 print(harry_potter_book.get_context_length())
 print(harry_potter_movie.get_context_length())
 
-########## 输出 ##########
+########## 输出 #################
 
 Document class init called
 parent class init called
@@ -191,4 +191,83 @@ Harry Potter(Movie)
 120
 ```
 
+Document 和 Video 它们有相似的地方，都有相应的标题、作者和内容等属性。我们可以从中抽象出一个叫做 Entity 的类，来作为它俩的父类.
+
+首先需要注意的是**构造函数**
+
+- 每个类都有构造函数，<u>继承类在生成对象的时候，是不会自动调用父类的构造函数的，因此必须在 init() 函数中显式调用父类的构造函数</u>。它们的**执行顺序是 子类的构造函数 -> 父类的构造函数**。
+
+其次需要注意父类 get_context_length() 函数。如果使用 Entity 直接生成对象，调用 get_context_length() 函数，就会 raise error 中断程序的执行。这其实是一种很好的写法，叫做**函数重写**，可以使子类必须重新写一遍 get_context_length() 函数，来覆盖掉原有函数。
+
+最后需要注意到 print_title() 函数，这个函数定义在父类中，但是子类的对象可以毫无阻力地使用它来打印 title，这也就体现了**继承的优势：减少重复的代码，降低系统的熵值（即复杂度）**。
+
+
+### 抽象类
+
+```python
+
+from abc import ABCMeta, abstractmethod
+
+class Entity(metaclass=ABCMeta):
+    @abstractmethod
+    def get_title(self):
+        pass
+
+    @abstractmethod
+    def set_title(self, title):
+        pass
+
+class Document(Entity):
+    def get_title(self):
+        return self.title
+    
+    def set_title(self, title):
+        self.title = title
+
+document = Document()
+document.set_title('Harry Potter')
+print(document.get_title())
+
+entity = Entity()
+
+########## 输出 ##########
+
+Harry Potter
+
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-7-266b2aa47bad> in <module>()
+     21 print(document.get_title())
+     22 
+---> 23 entity = Entity()
+     24 entity.set_title('Test')
+
+TypeError: Can't instantiate abstract class Entity with abstract methods get_title, set_title
+```
+
+抽象类是一种特殊的类，它生下来就是作为父类存在的，**一旦对象化就会报错**。
+
+同样，**抽象函数定义在抽象类之中，子类必须重写该函数才能使用**。相应的抽象函数，则是使用装饰器 **@abstractmethod** 来表示。
+
+代码中entity = Entity()直接报错，只有通过 Document 继承 Entity  才能正常使用。
+
+>抽象类就是这么一种存在，它是一种自上而下的设计风范，只需要用少量的代码描述清楚要做的事情，定义好接口，然后就可以交给不同开发人员去开发和对接。
+
+---
+
+思考：
+
+1. 面向对象编程的四要素是什么， 它们的关系是什么？
+
+    抽象、封装、继承、多态
+
+    - 抽象的本质是抽取不同类的的相同方法（函数）和属性，作为父类的属性和方法；
+    - 封装就是把功能封装抽象的方法和其他属性和方法；
+    - 子类继承父类的抽象出来的属性和方法； 
+    - 多态就是重写抽象的方法（函数）。
+
+2. 继承是什么？
+
+    子类继承父类的属性和方法（函数），减少代码量和复杂度；
+    三个字：**承接：属性&函数**
 
