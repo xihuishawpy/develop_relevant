@@ -56,7 +56,11 @@ AttributeError: 'Document' object has no attribute '__context'
 
 ![20220507144859](https://cdn.jsdelivr.net/gh/xihuishawpy/PicBad@main/blogs/pictures/20220507144859.png)
 
-> 想成为一个优秀的工程师，那就一定要积极锻炼**直觉思考**和**快速类比**的能力，尤其是在找不到 bug 的时候。这才是编程学习中能给人最快进步的方法和路径。
+> “想成为一个优秀的工程师，那就一定要积极锻炼**直觉思考**和**快速类比**的能力，尤其是在找不到 bug 的时候。这才是编程学习中能给人最快进步的方法和路径。”  
+> 
+> —— 来自某大佬
+
+
 
 
 
