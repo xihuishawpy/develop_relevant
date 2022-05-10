@@ -48,15 +48,17 @@ AttributeError                            Traceback (most recent call last)
 AttributeError: 'Document' object has no attribute '__context'
 ```
 
+**init** 表示构造函数，意即<u>一个对象生成时会被自动调用的函数</u>。能看到， harry_potter_book = Document(...)这一行代码被执行的时候，'init function called'字符串会被打印出来。
+
+如果一个属性以 __（此处为双下滑线） 开头，说明该属性是**私有属性，是指不希望在类的函数之外的地方被访问和修改的属性**（只能调用类中的函数进行修改）。可以看到，title 和 author 能够很自由地被打印出来，但是 print(harry_potter_book.__context)就会报错。
+
+**类，一群有着相同属性和函数的对象的集合。**
+
 ![20220507144859](https://cdn.jsdelivr.net/gh/xihuishawpy/PicBad@main/blogs/pictures/20220507144859.png)
 
 > 想成为一个优秀的工程师，那就一定要积极锻炼**直觉思考**和**快速类比**的能力，尤其是在找不到 bug 的时候。这才是编程学习中能给人最快进步的方法和路径。
 
-**类，一群有着相同属性和函数的对象的集合。**
 
-**init** 表示构造函数，意即<u>一个对象生成时会被自动调用的函数</u>。能看到， harry_potter_book = Document(...)这一行代码被执行的时候，'init function called'字符串会被打印出来。
-
-如果一个属性以 __（此处为双下滑线） 开头，说明该属性是**私有属性，是指不希望在类的函数之外的地方被访问和修改的属性**（只能调用类中的函数进行修改）。可以看到，title 和 author 能够很自由地被打印出来，但是 print(harry_potter_book.__context)就会报错。
 
 ## 2、类的几种函数
 
