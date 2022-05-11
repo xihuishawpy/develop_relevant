@@ -1,6 +1,6 @@
 
 
-## 实现一个搜索引擎
+## 案例：实现一个搜索引擎
 
 检索内容：
 
@@ -330,25 +330,62 @@ BOWInvertedIndexEngineWithCache 类，**多重继承**了两个类，多重继�
     LRUCache.__init__(self) 
     ```
 
-BOWInvertedIndexEngineWithCache类的search方法——缓存的使用逻辑：
+缓存的使用逻辑 —— BOWInvertedIndexEngineWithCache类的search方法 ：
 
 调用 has() 函数判断是否在缓存中，如果在，调用 get 函数直接返回结果；如果不在，送入后台计算结果（倒排索引搜索），然后再塞入缓存。
 
-search() 函数被子类 BOWInvertedIndexEngineWithCache 再次重载，但是还需要调用 BOWInvertedIndexEngine 的 search() 函数，强行调用被覆盖的父类的函数:
+另外，search() 函数被子类 BOWInvertedIndexEngineWithCache 再次重载，但是还需要调用 BOWInvertedIndexEngine 的 search() 函数，强行调用被覆盖的父类的函数:
 
 ```python 
-
 super(BOWInvertedIndexEngineWithCache, self).search(query)
 ```
 
+也就是，`当子类重写了父类的方法，如果想调用父类的方法，可以利用super()`
+
+
 补充：
-Python并没有真正的私有化支持，但可用下划线得到`伪私有`：
+
+一、Python并没有真正的私有化支持，但可用下划线得到`伪私有`：
 
 1. _xxx ： "单下划线 " 开始的成员变量叫做保护变量，意思是`只有类对象和子类对象自己能访问到这些变量`，需通过类提供的接口进行访问；
+   
 2. __xxx ： 类中的私有变量/方法名，`只有类对象自己能访问`，连子类对象也不能访问到这个数据。
    
 3. \__xxx __ ：魔法函数，前后均有一个“双下划线” 代表python里`特殊方法专用的标识`，如 \__init __() 代表类的构造函数。
 
+
+二、强制调用父类私有属性\方法
+
+通过“**self._类名__属性名**”的方式调用父类的私有方法、属性
+
+```python
+class Father():
+    def __init__(self,value):
+        self.__value = value  # 私有属性
+        
+    def __action(self):  # 私有方法
+        print('调用父类的方法')
+    
+    # 还可以在父类创建方法返回私有属性的值，然后子类调用父类方法去取得该私有属性的值
+    def get_private_value(self): 
+        print(self.__value)
+ 
+class Son(Father):
+    def action(self):
+        print(self._Father__value)
+        self._Father__action()
+        
+        
+son = Son(520)
+son.action()
+# 子类调用父类方法去取得私有属性的值
+son.get_private_value() 
+
+# output: 
+# 520
+# 调用父类的方法
+# 520
+```
 
 ---
 
