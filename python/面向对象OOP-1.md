@@ -202,9 +202,9 @@ Document 和 Video 它们有相似的地方，都有相应的标题、作者和�
 
     ```python
     class parent():
-    def __init__(self,value):
-        self.value = value
-        print(self.value)
+        def __init__(self,value):
+            self.value = value
+            print(self.value)
 
     class child(parent):
         pass
@@ -219,9 +219,9 @@ Document 和 Video 它们有相似的地方，都有相应的标题、作者和�
     ```python
     
     class parent():
-    def __init__(self,value):
-        self.value = 123
-        print(self.value)
+        def __init__(self,value):
+            self.value = 123
+            print(self.value)
 
     class child(parent):
         def __init__(self,value):
@@ -237,9 +237,9 @@ Document 和 Video 它们有相似的地方，都有相应的标题、作者和�
     
     ```python
     class parent():
-    def __init__(self,value):
-        self.value = 123
-        print(self.value)
+        def __init__(self,value):
+            self.value = 123
+            print(self.value)
 
     class child(parent):
         def __init__(self,value):
@@ -252,6 +252,8 @@ Document 和 Video 它们有相似的地方，都有相应的标题、作者和�
     # output:123
     #        789
     ```
+
+    总之就是，如果有子类继承父类，那么按照子类的构造函数-->父类的构造函数的顺序执行。先去寻找子类的init构造方法，再去找父类init构造方法；如果需要子类init构造方法，又想继承父类init方法，则需要使用关键字super。
 
 
 其次需要注意父类 get_context_length() 函数。如果使用 Entity 直接生成对象，调用 get_context_length() 函数，就会 raise error 中断程序的执行。这其实是一种很好的写法，叫做**函数重写**，`可以使子类必须重新写一遍 get_context_length() 函数，来覆盖掉原有函数`。
