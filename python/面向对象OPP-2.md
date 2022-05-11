@@ -342,6 +342,7 @@ super(BOWInvertedIndexEngineWithCache, self).search(query)
 
 也就是，`当子类重写了父类的方法，如果想调用父类的方法，可以利用super()`
 
+---
 
 补充：
 
