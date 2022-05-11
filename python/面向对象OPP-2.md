@@ -254,3 +254,98 @@ found 1 result(s):
 ```
 
 至于 search() 函数，它会根据 query_words 拿到所有的倒序索引，如果拿不到，就表示有的 query word 不存在于任何文章中，直接返回空；拿到之后，运行一个“合并 K 个有序数组”的算法，从中拿到我们想要的 ID，并返回。
+
+
+### 5、LRU 和多重继承
+
+大量重复性搜索占据了 90% 以上的流量，于是给搜索引擎加一个缓存。
+
+```python
+
+import pylru
+
+# LRUCache 定义了一个缓存类
+class LRUCache(object):
+    def __init__(self, size=32):
+        self.cache = pylru.lrucache(size)
+
+    def has(self, key):
+        return key in self.cache
+    
+    def get(self, key):
+        return self.cache[key]
+    
+    def set(self, key, value):
+        self.cache[key] = value
+
+class BOWInvertedIndexEngineWithCache(BOWInvertedIndexEngine, LRUCache):
+    def __init__(self):
+        super(BOWInvertedIndexEngineWithCache, self).__init__() 
+        LRUCache.__init__(self)
+    
+    # 缓存的逻辑
+    def search(self, query):
+        # 调用 has() 函数判断是否在缓存中
+        if self.has(query):
+            print('cache hit!')
+            # 调用 get 函数直接返回结果
+            return self.get(query)
+        
+        result = super(BOWInvertedIndexEngineWithCache, self).search(query)
+        self.set(query, result)
+        
+        return result
+
+search_engine = BOWInvertedIndexEngineWithCache()
+main(search_engine)
+
+
+########## 输出 ##########
+
+
+little
+found 2 result(s):
+1.txt
+2.txt
+little
+cache hit!
+found 2 result(s):
+1.txt
+2.txt
+```
+
+BOWInvertedIndexEngineWithCache 类，**多重继承**了两个类，多重继承有两种初始化方法：
+
+1. 直接初始化该类的第一个父类：
+   ```python
+   
+    super(BOWInvertedIndexEngineWithCache, self).__init__()
+    ```
+2. 对于多重继承，如果有多个构造函数需要调用， 必须用传统的方法: 
+    ```python
+    LRUCache.__init__(self) 
+    ```
+
+
+BOWInvertedIndexEngineWithCache类的search方法——缓存的使用逻辑：
+
+调用 has() 函数判断是否在缓存中，如果在，调用 get 函数直接返回结果；如果不在，送入后台计算结果（倒排索引搜索），然后再塞入缓存。
+
+search() 函数被子类 BOWInvertedIndexEngineWithCache 再次重载，但是还需要调用 BOWInvertedIndexEngine 的 search() 函数，强行调用被覆盖的父类的函数:
+
+```python 
+
+super(BOWInvertedIndexEngineWithCache, self).search(query)
+```
+
+补充：
+Python并没有真正的私有化支持，但可用下划线得到`伪私有`：
+
+1. _xxx ： "单下划线 " 开始的成员变量叫做保护变量，意思是`只有类对象和子类对象自己能访问到这些变量`，需通过类提供的接口进行访问；
+2. __xxx ： 类中的私有变量/方法名，`只有类对象自己能访问`，连子类对象也不能访问到这个数据。
+   
+3. \__xxx __ ：魔法函数，前后均有一个“双下划线” 代表python里`特殊方法专用的标识`，如 \__init __() 代表类的构造函数。
+
+
+
+
