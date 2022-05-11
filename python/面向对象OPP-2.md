@@ -317,15 +317,18 @@ found 2 result(s):
 BOWInvertedIndexEngineWithCache 类，**多重继承**了两个类，多重继承有两种初始化方法：
 
 1. 直接初始化该类的第一个父类：
+
    ```python
-   
     super(BOWInvertedIndexEngineWithCache, self).__init__()
     ```
+
+    super().\__init__() 只能调用第一个父类的构造函数；对于多重继承，如果想调用其他父类的构造函数，则必须指定（用下面的传统方法）
+
 2. 对于多重继承，如果有多个构造函数需要调用， 必须用传统的方法: 
+
     ```python
     LRUCache.__init__(self) 
     ```
-
 
 BOWInvertedIndexEngineWithCache类的search方法——缓存的使用逻辑：
 
@@ -347,5 +350,9 @@ Python并没有真正的私有化支持，但可用下划线得到`伪私有`：
 3. \__xxx __ ：魔法函数，前后均有一个“双下划线” 代表python里`特殊方法专用的标识`，如 \__init __() 代表类的构造函数。
 
 
+---
 
+相关阅读：
 
+1. [Python:类的继承，调用父类的属性和方法基础详解](https://blog.csdn.net/yilulvxing/article/details/85374142)
+2. 
