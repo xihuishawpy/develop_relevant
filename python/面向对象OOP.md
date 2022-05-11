@@ -127,7 +127,7 @@ Welcome! The context for this book is indeed nothing.
 
 ## 3、类的继承
 
-类的继承，指的是一个类既拥有另一个类的特征，也拥有不同于另一个类的独特特征。在这里的第一个类叫做子类，另一个叫做父类，特征其实就是类的属性和函数。
+**类的继承，指的是一个类既拥有另一个类的特征，也拥有不同于另一个类的独特特征**。在这里的第一个类叫做子类，另一个叫做父类，<u>特征其实就是类的属性和函数</u>。
 
 示例3 ：
 
@@ -147,7 +147,7 @@ class Entity():
 class Document(Entity):
     def __init__(self, title, author, context):
         print('Document class init called')
-        Entity.__init__(self, 'document')
+        Entity.__init__(self, 'document') # 显式调用父类的构造函数
         self.title = title
         self.author = author
         self.__context = context
